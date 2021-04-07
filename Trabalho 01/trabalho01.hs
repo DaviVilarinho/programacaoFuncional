@@ -64,8 +64,13 @@ pos_multiplos_3 :: [Int] -> [Int]
 pos_multiplos_3 l = [ x | x <- l, x `mod` 3 == 0, x > 0 ]
 
 -- 6
+fatores :: Int -> [Int]
+fatores n = [ x | x <- [1..n], n `mod` x == 0 ]
+primosEntre :: Int -> Int -> [Int]
+primosEntre min max = [ x | x <- [min..max], fatores x == [1,x] ] 
 
 -- 7
+-- mmc
 
 -- 8
 calcula_serie :: Double -> Int -> Double
@@ -108,3 +113,31 @@ zipar   []      _ = []
 zipar (x:xs) (y:ys) = [x,y]:(zipar xs ys)
 
 -- 14
+
+-- 15
+-- 16
+-- Escreva a função  insere_ord   a   seguir, que recebe uma lista polimórficaordenada de elementos (critério de ordenação crescente) e um novo elemento  x (domesmo tipo da lista) e retorna a nova lista com o novo elemento inserido
+insere_ord :: Ord a => a -> [a] -> [a]
+insere_ord ins [] = [ins]
+insere_ord ins [x] = if ins > x then [x]++[ins] else ins:[x] 
+insere_ord ins (x:xs:xss)
+    | ins < x = ins:x:xs:xss 
+    | ins >= x && ins <= xs = x:ins:xs:xss
+    | otherwise = x:(insere_ord (xs:xss) ins)
+-- 17
+-- Escreva a função revertea seguir que recebe uma lista polimórfica e retorna umalista com seus elementos ao contrário.
+reverte :: [a] -> [a]
+reverte [] = []
+reverte (x:xs) = (reverte xs)++[x]
+-- 18
+-- Escreva a função  elimina_repeta seguir que recebe uma lista polimórfica eretorna uma lista sem elementos repetidos.
+--
+eliminaRepet :: Eq a => [a] -> [a]
+eliminaRepet [] = []
+eliminaRepet list
+    | x `elem` xs = eliminaRepet xs
+    | otherwise   = (eliminaRepet xs)++[x]
+    where x = last list
+          xs = init list 
+-- 19
+-- 20
