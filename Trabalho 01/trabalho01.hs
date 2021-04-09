@@ -71,8 +71,23 @@ primosEntre min max = [ x | x <- [min..max], fatores x == [1,x] ]
 
 -- 7
 -- mmc
+intersection :: [Int] -> [Int] -> [Int] -> [Int]
+intersection [] l1 l2 = []
+intersection (x:xs) l1 l2
+    | x `elem` l1 && x `elem` l2 = x:(intersection xs l1 l2)
+    | otherwise = intersection xs l1 l2
 
--- 8
+mmc :: Int -> Int -> Int -> Int
+mmc _ _ 0 = 0
+mmc _ 0 _ = 0
+mmc 0 _ _ = 0
+mmc x y z = minimum (intersection (multiplos x max) (multiplos y max) (multiplos z max))
+    where max = x*y*z
+        
+multiplos :: Int -> Int -> [Int]
+multiplos x max = [x*i | i <- [1..max], x*i <= max]
+                      
+-- 8                  
 calcula_serie :: Double -> Int -> Double
 calcula_serie x 0 = 0
 calcula_serie x n
@@ -113,8 +128,68 @@ zipar   []      _ = []
 zipar (x:xs) (y:ys) = [x,y]:(zipar xs ys)
 
 -- 14
+-- -- 14) Defina novos tipos para representar os dados contidos numa agenda pessoal. Para cada contato, armazene as informações: nome, endereço, telefone, e-mail. Em seguida, crie uma função para recuperar o nome de um contato, a partir do email. Caso o número não seja encontrado, retornar a mensagem “Email desconhecido”.
+--
+---------------- nome - ender - email -- fone -
+type Contact = (String, String, String, String)
+
+getMail :: Contact -> String
+getMail (_,_,x,_) = x
+
+getNameByMail :: String -> [Contact] -> String
+getNameByMail mail [] = "Email desconhecido"
+getNameByMail mail ((n,_,m,_):cs)
+    | mail == m = n 
+    | otherwise = getNameByMail mail cs
 
 -- 15
+type Pessoa = (String, Float, Int, Char)
+pessoas :: [Pessoa]
+pessoas = [ ("Rosa", 1.66, 27,'F'),
+            ("João", 1.85, 26, 'C'),
+            ("Maria", 1.55, 62, 'S'),
+            ("Jose", 1.78, 42, 'C'),
+            ("Paulo", 1.93, 25, 'S'),
+            ("Clara", 1.70, 33, 'C'),
+            ("Bob", 1.45, 21, 'C'),
+            ("Rosana", 1.58,39, 'S'),
+            ("Daniel", 1.74, 72, 'S'),
+            ("Jocileide", 1.69, 18, 'S') ]
+
+-- auxiliar
+getAltura :: Pessoa -> Float
+getAltura (_,a,_,_) = a
+
+alturaMedia :: [Pessoa] -> Float
+alturaMedia ps = (sum (map (getAltura) ps))/(fromIntegral (length ps))
+
+-- auxiliar
+getIdade :: Pessoa -> Int
+getIdade (_,_,i,_) = i
+menor :: Ord a => [a] -> a
+menor [x] = x
+menor (x:xs:xss)
+    | x < xs = menor (x:xss)
+    | otherwise = menor (xs:xss)
+
+idadeMaisNova :: [Pessoa] -> Int
+idadeMaisNova ps = menor [ getIdade x | x <- ps ]
+
+nomeEstadoMaisVelha :: [Pessoa] -> (String,Char)
+nomeEstadoMaisVelha [(n,a,i,e)] = (n,e)
+nomeEstadoMaisVelha ((n,a,i,e):(ns,as,is,es):pss)
+    | i > is = nomeEstadoMaisVelha ((n,a,i,e):pss)
+    | otherwise = nomeEstadoMaisVelha ((ns,as,is,es):pss)
+
+maisQ50 :: [Pessoa] -> [Pessoa]
+maisQ50 ps = [c | c <- ps, getIdade c >= 50]
+
+--auxiliar 
+getEstado :: Pessoa -> Char
+getEstado (_,_,_,c) = c
+
+casadosMaisQue :: Int -> [Pessoa] -> Int
+casadosMaisQue i ps = length [c | c <- ps, getIdade c >= i, getEstado c == 'C']
 -- 16
 -- Escreva a função  insere_ord   a   seguir, que recebe uma lista polimórficaordenada de elementos (critério de ordenação crescente) e um novo elemento  x (domesmo tipo da lista) e retorna a nova lista com o novo elemento inserido
 insere_ord :: Ord a => a -> [a] -> [a]
@@ -123,7 +198,7 @@ insere_ord ins [x] = if ins > x then [x]++[ins] else ins:[x]
 insere_ord ins (x:xs:xss)
     | ins < x = ins:x:xs:xss 
     | ins >= x && ins <= xs = x:ins:xs:xss
-    | otherwise = x:(insere_ord (xs:xss) ins)
+    | otherwise = x:(insere_ord ins (xs:xss))
 -- 17
 -- Escreva a função revertea seguir que recebe uma lista polimórfica e retorna umalista com seus elementos ao contrário.
 reverte :: [a] -> [a]
@@ -140,4 +215,6 @@ eliminaRepet list
     where x = last list
           xs = init list 
 -- 19
+-- notasTroco 1 = [1]
+-- notasTroco 
 -- 20
