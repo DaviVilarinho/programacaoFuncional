@@ -70,22 +70,22 @@ primosEntre :: Int -> Int -> [Int]
 primosEntre min max = [ x | x <- [min..max], fatores x == [1,x] ] 
 
 -- 7
--- mmc
-intersection :: [Int] -> [Int] -> [Int] -> [Int]
-intersection [] l1 l2 = []
-intersection (x:xs) l1 l2
-    | x `elem` l1 && x `elem` l2 = x:(intersection xs l1 l2)
-    | otherwise = intersection xs l1 l2
 
 mmc :: Int -> Int -> Int -> Int
-mmc _ _ 0 = 0
-mmc _ 0 _ = 0
-mmc 0 _ _ = 0
-mmc x y z = minimum (intersection (multiplos x max) (multiplos y max) (multiplos z max))
-    where max = x*y*z
-        
-multiplos :: Int -> Int -> [Int]
-multiplos x max = [x*i | i <- [1..max], x*i <= max]
+mmc x y z = mmcLista (x:y:z:[])
+
+mmcLista :: [Int] -> Int
+mmcLista [] = 1
+mmcLista l
+    | 1 `elem` l = mmcLista ([x | x <- l, x /= 1])
+    | otherwise  = menorFator*(mmcLista divididos)
+    where 
+        menorFator = minimum [a | a <- todosFatores l, a /= 1]
+        divididos = map (\x -> if x `mod` menorFator == 0 then x `div` menorFator else x) l
+
+todosFatores :: [Int] -> [Int]
+todosFatores [] = []
+todosFatores (x:xs) = (fatores x)++(todosFatores xs)
                       
 -- 8                  
 calcula_serie :: Double -> Int -> Double
@@ -216,5 +216,10 @@ eliminaRepet list
           xs = init list 
 -- 19
 -- notasTroco 1 = [1]
+disponiveis = [1,2,5,10,20,50,100]
+
+notasTroco :: Int -> [[Int]]
+notasTroco 0 = [[]]
+notasTroco n = [x:t | x <- disponiveis, x <= n, t <- (notasTroco (n-x))]
 -- notasTroco 
 -- 20
