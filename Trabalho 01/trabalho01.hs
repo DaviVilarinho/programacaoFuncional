@@ -223,3 +223,4 @@ notasTroco 0 = [[]]
 notasTroco n = [x:t | x <- disponiveis, x <= n, t <- (notasTroco (n-x))]
 -- notasTroco 
 -- 20
+-- -- nrainhas
