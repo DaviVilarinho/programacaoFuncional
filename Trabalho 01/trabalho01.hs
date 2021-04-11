@@ -224,3 +224,9 @@ notasTroco n = [x:t | x <- disponiveis, x <= n, t <- (notasTroco (n-x))]
 -- notasTroco 
 -- 20
 -- -- nrainhas
+-- -- -- fazer como o notas troco
+
+nrainhas :: Int -> [[Int]]
+nrainhas 1 = [[]]
+nrainhas n = 
+
