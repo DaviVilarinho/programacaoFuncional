@@ -55,7 +55,7 @@ gera4 :: [(Int,Int)]
 gera4 = [ (x,x+1) | x <- [1..10-1], x `mod` 2 == 0]
 
 gera5 :: [Int]
-gera5 = map (sumTuple) gera4
+gera5 = [sumTuple x | x <- gera4]
 sumTuple :: (Int,Int) -> Int
 sumTuple (x,y) = x+y
 
@@ -81,7 +81,7 @@ mmcLista l
     | otherwise  = menorFator*(mmcLista divididos)
     where 
         menorFator = minimum [a | a <- todosFatores l, a /= 1]
-        divididos = map (\x -> if x `mod` menorFator == 0 then x `div` menorFator else x) l
+        divididos = map (\x -> if x `mod` menorFator == 0 then x `div` menorFator else x) l -- escolhe elementos a serem divididos, ou seja, os que nao forem continuam iguais, do contrario divide
 
 todosFatores :: [Int] -> [Int]
 todosFatores [] = []
@@ -102,7 +102,7 @@ fizzBuzzIs x
     | otherwise = "No"
 
 fizzbuzz :: Int -> [String]
-fizzbuzz n = map fizzBuzzIs [1..n]
+fizzbuzz n = [fizzBuzzIs x | x <- [1..n]]
 
 -- 10
 sel_multiplos :: Int -> [Int] -> [Int]
@@ -161,7 +161,7 @@ getAltura :: Pessoa -> Float
 getAltura (_,a,_,_) = a
 
 alturaMedia :: [Pessoa] -> Float
-alturaMedia ps = (sum (map (getAltura) ps))/(fromIntegral (length ps))
+alturaMedia ps = (sum [getAltura p | p <- ps])/(fromIntegral (length ps))
 
 -- auxiliar
 getIdade :: Pessoa -> Int
@@ -227,6 +227,28 @@ notasTroco n = [x:t | x <- disponiveis, x <= n, t <- (notasTroco (n-x))]
 -- -- -- fazer como o notas troco
 
 nrainhas :: Int -> [[Int]]
-nrainhas 1 = [[]]
-nrainhas n = 
+nrainhas 1 = [[1]]
+nrainhas n = [a | a <- permuta [1..n], notDiag a a]
 
+permuta :: Eq a => [a] -> [[a]]
+permuta [] = [[]]
+permuta x = [y:z | y <- x,  
+                   z <- permuta ([w | w <- x, not (w == y)])] -- removendo elemento já permutado
+
+getPos :: Eq a => a -> [a] -> Int
+getPos n (x:xs)
+    | n == x = 1
+    | otherwise = 1 + (getPos n xs)
+
+notDiag :: [Int] -> [Int] -> Bool
+notDiag [] _ = True
+notDiag (x:xs) l = diag x l l && notDiag xs l -- melhor seria usar o map
+
+
+diag :: Int -> [Int] -> [Int] -> Bool
+diag _ [] _ =  True
+diag a (x:xs) todas
+    | ((abs (posA - posX)) == (abs (a - x))) && (a /= x) = False
+    | otherwise = True && (diag a xs todas)
+    where posA = getPos a todas
+          posX = getPos x todas
