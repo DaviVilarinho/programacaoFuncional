@@ -1,0 +1,12 @@
+Prelude> (\x -> x + 3) 5
+8
+Prelude> (\x -> \y -> x * y + 5) 3 4
+17
+Prelude> (\(x,y) -> x * y^2) (3,4)
+48
+Prelude> (\(x,y,_) -> x * y^2) (3,4,2)
+48
+Prelude> (\xs -> zip xs [1,2,3]) [4,5,6]
+[(4,1),(5,2),(6,3)]
+Prelude> 
+
