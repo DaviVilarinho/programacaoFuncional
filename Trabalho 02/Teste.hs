@@ -1,5 +1,6 @@
 module Teste where 
 import Bolha
+import Quicksort
 
 l1=[1..2000]
 l2=[2000,1999..1]
