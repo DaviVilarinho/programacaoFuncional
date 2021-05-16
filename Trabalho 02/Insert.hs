@@ -17,3 +17,12 @@ insercaoOrd x (y:ys, cont)                                                -- a i
     where (listaInsertResto, contResto) = insercaoOrd x (ys, cont+1)            -- a posição de x é na inserção ordenada de x no restante da lista sem o y
 
 ---------------------------------------------------------------------------
+
+-- foldr
+
+insercaoFoldr :: (Ord a) => [a] -> ([a], Int)
+insercaoFoldr l = insercaoFoldr' (l, 0)
+
+insercaoFoldr' :: (Ord a) => ([a], Int) -> ([a], Int)
+insercaoFoldr' ([], counter) = ([], counter)
+insercaoFoldr' (l, counter) = foldr (insercaoOrd) ([], 0) l                 -- inserir ordenadamente numa lista que está inserida ordenadamente

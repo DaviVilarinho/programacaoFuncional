@@ -47,4 +47,18 @@ remove_menor (x:xs)                                 -- compara o menor com o men
 --  -- var 2: foldr ou foldr1
 --  --selecaoVar2 :: Ord a => [a] -> ([a],Int)
 --  
---  --selecaoVar2 xs = foldr 
+selecaoVar2 :: Ord l => [l] -> ([l],Int)
+selecaoVar2 l = selecaoVar2' (l, 0)
+
+selecaoVar2' :: Ord l => ([l], Int) -> ([l], Int)
+selecaoVar2' ([],cont) = ([],cont)
+selecaoVar2' (l:ls, cont) = (foldr (:) selecaoResto [menor], contResto)       -- juntar o menor ao acumulador, que é a seleção do restante
+    where (listaSemMenor, menor) = remove_menor (l:ls)
+          tempCont               = cont + (if menor == l then 0 else 1)
+          (selecaoResto, contResto) = selecaoVar2' (listaSemMenor, tempCont)
+
+-- 4 3 2
+---- foldr (:) [2] b
+---- ++ foldr (:) [3] c
+---- ++ == foldr (:) [4] d
+---- ++ == __ foldr (:) []
