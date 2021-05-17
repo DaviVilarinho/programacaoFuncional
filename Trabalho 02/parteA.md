@@ -4,14 +4,12 @@
 
 12011BCC006
 
-## Estrutura do arquivo
-
 Organizei o trabalhando de tal forma que cada seção contém a análise do desempenho separado de cada variação 
 e, ao final de todo o trabalho, uma comparação entre todos.
 
-### Bolha
+## Bolha
 
-#### Original
+### Original
 
 O tempo para executar todos os testes foi de: 68.69 s
 
@@ -34,7 +32,7 @@ O tempo para executar todos os testes foi de: 68.69 s
 
 Nota-se que o algoritmo cresce exponencialmente 
 
-#### Variação 1
+### Variação 1
 
 O tempo para executar todos os testes foi de: 55.37 s
 
@@ -57,7 +55,7 @@ O tempo para executar todos os testes foi de: 55.37 s
 
 Não houve diminuição nas trocas (como era esperado), mas houve uma diminuição no tempo de avaliação de elementos repetidos.
 
-#### Variação 2
+### Variação 2
 
 O tempo para executar todos os testes foi de: 36.43 s
 
@@ -81,9 +79,9 @@ O tempo para executar todos os testes foi de: 36.43 s
 Houve uma diminuição bem relevante no tempo, uma vez que ele não precisa mais percorrer toda a lista, e sim a lista ainda não ordenada, 
 aproveitando do fato de que o maior elemento da lista, em cada iteração, já está no final.
 
-### Seleção
+## Seleção
 
-#### Original
+### Original
 
 | Teste | Tempo (s) | Contador  |
 |:-----:|:----------|:---------:|
@@ -105,7 +103,7 @@ aproveitando do fato de que o maior elemento da lista, em cada iteração, já e
 O tempo é grande demais por causa de sua para os piores cenários possíveis,
 sendo usável, então, apenas com pequenas listas ou já ordenadas.
 
-#### Variação 1
+### Variação 1
 
 Os testes todos rodaram em: 17.10s
 
@@ -128,7 +126,7 @@ Os testes todos rodaram em: 17.10s
 
 O tempo reduziu drasticamente, graças a diminuição da quantidade de vezes que uma lista era circulada.
 
-#### Variação 2
+### Variação 2
 
 Todos rodaram em 18.90 s
 
@@ -151,9 +149,9 @@ Todos rodaram em 18.90 s
 
 Similar ao teste passado em questão de tempo, uma vez que é a mesma função remove_minimo. O problema, provavelmente, é o uso do foldr que pode não ser otimizado para esta tarefa por causa do lazy evaluation quando em massa. Mas em testes separados aparentemente é minimamente superior.
 
-### Inserção
+## Inserção
 
-#### Original 
+### Original 
 
 O tempo para testar todos foi de: 22.34 s
 
@@ -177,7 +175,7 @@ O tempo para testar todos foi de: 22.34 s
 O algoritmo evita perder tempo quando a lista já está quase ordenada, mas faz muitas comparações, embora mais eficientes que o Bubble Sort, por exemplo, mesmo assim,
 consegue um resultado satisfatório.
 
-#### Variação 1
+### Variação 1
 
 Realiza todos testes em: 20.82s
 
@@ -200,9 +198,9 @@ Realiza todos testes em: 20.82s
 
 Melhorias mínimas para os casos grandes, e para os pequenos teve uma anomalia. O foldr não fez tanta diferença relativamente à diferença que demais variações em outros algoritmos fizeram
 
-### Quicksort
+## Quicksort
 
-#### Original
+### Original
 
 Realiza todos testes em: 41.28s
 
@@ -226,7 +224,7 @@ Realiza todos testes em: 41.28s
 O Quicksort não é ruim em sua forma "padrão", mas também realiza muitas operações desnecessárias se perceorre duas vezes a lista identificando
 maiores e menores.
 
-#### Variação 1
+### Variação 1
 
 Realiza todos testes (sem extra) em: 27.50s
 
@@ -252,7 +250,7 @@ Como se pode ver, a redução de comparações à metade ajuda muito o quicksort
 O quicksort tem dificuldade em listas que já estão parcialmente ordenadas (crescentemente ou decrescentemente), por isso, não obteve um resultado perfeito.
 Ao final, um teste extra que mostra que numa lista ainda maior (5102 de tamanho), mas levemente desordenada, o quicksort tem um resultado excelente, com até menos troca que em listas menores.
 
-#### Variação 2
+### Variação 2
 
 Realiza todos testes (sem extra) em: 15.57s
 
@@ -276,7 +274,7 @@ Realiza todos testes (sem extra) em: 15.57s
 O Quicksort com a mediana teve um ótimo desempenho, reduzindo novamente à metade o número de comparações e praticamente também o tempo.
 Isso acontece porque o pior cenário do Quicksort (quando a lista já está ordenada) é contornado e só acontece quando a lista é muito pequena (na recursão inclusive).
 
-### Mergesort
+## Mergesort
 
 Realiza todos testes (sem extra) em: 0.62s
 
@@ -301,7 +299,7 @@ O Mergesort é disparadamente o que realizou menos comparações e teve resultad
 contador diminuindo em 100 vezes. Isso se deve ao fato de que ele consegue reduzir o tamanho das listas recursivamente e ordená-las *ao mesmo tempo* em que 
 as diminui com a função "intercala".
 
-## Conclusão
+# Conclusão
 
 É possível observar que os resultados tendem a ser melhor na medida em que reduz a quantidade de vezes em que circula pelos elementos da lista e o quanto consegue reduzir o tamanho da lista. Isso é basicamente um princípio da recursividade: reduzir o tamanho do problema para casos mais fáceis de resolver (chamados casos base).
 

@@ -1,4 +1,32 @@
 -- 6
+---- a
+data Exp =
+    Val Int
+    | Add Exp Exp
+    | Sub Exp Exp
+    | Mult Exp Exp
+    | Divi Exp Exp
+
+avalia (Val x) = x
+avalia (Add exp1 exp2) = (avalia exp1) + (avalia exp2)
+avalia (Sub exp1 exp2) = (avalia exp1) - (avalia exp2)
+avalia (Mult exp1 exp2) = (avalia exp1) * (avalia exp2)
+avalia (Divi exp1 exp2) = (avalia exp1) `div` (avalia exp2)
+
+--B--- --------- ---B--
+------ QUESTAO B ------
+--B--- --------- ---B--
+--  *Main> exp1 = (Divi (Val (avalia (Mult (Val (avalia (Add (Val 3) (Val 12)))) (Val (avalia (Add (Val 15) (Val 5))))))) (Val (avalia(Mult (Val 1) (Val 3)))))
+--  *Main> avalia exp1
+--  100
+
+--  *Main> exp2 = (Sub (Val 0) (Val (avalia (Mult (Val (avalia (Add (Val (avalia (Sub (Val ((avalia (Add (Val 6) (Val 8))))) (Val 5))) ) (Val 1)))) (Val (avalia (Add (Val 2) (Val (avalia (Divi (Val 6) (Val 2)))))))))))
+--  *Main> avalia exp2
+--  -50
+
+
+
+avalia (Sub (Val 0) (Val (avalia (Mult (Val (avalia (Add (Val (avalia (Sub (Val ((avalia (Add (Val 6) (Val 8))))) (Val 5))) ) (Val 1)))) (Val (avalia (Add (Val 2) (Val (avalia (Divi (Val 6) (Val 2)))))))))))
 
 -----------------------------------
 -- 7 - Pedra papel e Tesoura
