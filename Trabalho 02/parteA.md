@@ -275,3 +275,55 @@ Realiza todos testes (sem extra) em: 15.57s
 
 O Quicksort com a mediana teve um ótimo desempenho, reduzindo novamente à metade o número de comparações e praticamente também o tempo.
 Isso acontece porque o pior cenário do Quicksort (quando a lista já está ordenada) é contornado e só acontece quando a lista é muito pequena (na recursão inclusive).
+
+### Mergesort
+
+Realiza todos testes (sem extra) em: 0.62s
+
+| Teste | Tempo (s) | Contador  |                                               
+|:-----:|:----------|:---------:|                                               
+|   l1  | 0.07      | 10864     |                                               
+|   l2  | 0.05      | 11088     |                                               
+|   l3  | 0.06      | 10880     |                                               
+|   l4  | 0.05      | 11102     |                                               
+|   l5  | 0.15      | 25966     |                                               
+|   l6  | 0.13      | 25958     |                                               
+|   l7  | 0.14      | 26190     |                                               
+|   x1  | 0.00      | 40        |                                               
+|   x2  | 0.00      | 48        |                                               
+|   x3  | 0.01      | 40        |                                               
+|   x4  | 0.00      | 40        |                                               
+|   x5  | 0.00      | 48        |                                               
+|   x6  | 0.00      | 60        |                                               
+|   x7  | 0.00      | 65        |                                               
+
+O Mergesort é disparadamente o que realizou menos comparações e teve resultados exorbitantemente superiores. Tempo reduzindo à menos de 1s em todos os casos e 
+contador diminuindo em 100 vezes. Isso se deve ao fato de que ele consegue reduzir o tamanho das listas recursivamente e ordená-las *ao mesmo tempo* em que 
+as diminui com a função "intercala".
+
+## Conclusão
+
+É possível observar que os resultados tendem a ser melhor na medida em que reduz a quantidade de vezes em que circula pelos elementos da lista e o quanto consegue reduzir o tamanho da lista. Isso é basicamente um princípio da recursividade: reduzir o tamanho do problema para casos mais fáceis de resolver (chamados casos base).
+
+Este fato constatado é provado pela eficiência de tempo e comparações existententes no Mergesort, que aplica (e bem) ambos, sendo uma escala de grandeza menor que todos os outros.
+
+Comparando todos, é possível identificar que:
+
+| Algoritmo                 | Aleatória | Ordenada  | Ordenada Reversamente | Lista Pequena | Lista Grande  |
+|:-------------------------:|:---------:|:---------:|:---------------------:|:-------------:|:-------------:|
+| Bolha (original)          | Ruim      | Ruim      | Ruim                  | Ruim          | Ruim          |
+| Bolha (variação 1)        | Ok        | Ok        | Ruim                  | Ruim          | Ruim          |
+| Bolha (variação 2)        | Ok        | Ok        | Ruim                  | Ruim          | Ruim          |
+| Seleção (Original)        | Péssimo   | Ok        | Péssimo               | Excelente     | Péssimo       |
+| Seleção (Variação 1)      | Ok        | Excelente | Bom                   | Excelente     | Bom           |
+| Seleção (Variação 2)      | Ok        | Excelente | Bom                   | Excelente     | Bom           |
+| Inserção (Original)       | Ok        | Excelente | Ok                    | Ok            | Ok            |
+| Inserção (Variação 1)     | Ok        | Excelente | Ok                    | Ruim          | Ok            |
+| Quicksort (Original)      | Bom       | Ruim      | Ruim                  | Ruim          | Ruim          |
+| Quicksort (Variação 1)    | Bom       | Ruim      | Ruim                  | Ruim          | Ok            |
+| Quicksort (Variação 2)    | Bom       | Ruim      | Ruim                  | Ok            | Bom           |
+| Mergesort                 | Excelente | Excelente | Excelente             | Ok            | Excelente     |
+
+Sendo assim é entendível que o mergesort é praticamente a melhor opção, embora tenha uma maior complexidade de implementação.
+Em suas melhores implementações, o Quicksort seria o ideal para listas bem embaralhadas e grandes, Seleção é ideal se precisar de implementações simples,
+assim como o Inserção, embora um pouco menos, e o Bolha sendo o menos otimizado de todos na média dos cenários.

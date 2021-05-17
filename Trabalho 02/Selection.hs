@@ -56,9 +56,3 @@ selecaoVar2' (l:ls, cont) = (foldr (:) selecaoResto [menor], contResto)       --
     where (listaSemMenor, menor) = remove_menor (l:ls)
           tempCont               = cont + (if menor == l then 0 else 1)
           (selecaoResto, contResto) = selecaoVar2' (listaSemMenor, tempCont)
-
--- 4 3 2
----- foldr (:) [2] b
----- ++ foldr (:) [3] c
----- ++ == foldr (:) [4] d
----- ++ == __ foldr (:) []
