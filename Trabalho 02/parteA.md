@@ -128,26 +128,27 @@ O tempo reduziu drasticamente, graças a diminuição da quantidade de vezes que
 
 ### Variação 2
 
-Todos rodaram em 18.90 s
+Todos rodaram em 16.43 s
 
 | Teste | Tempo (s) | Contador  |
 |:-----:|:----------|:---------:|
-|   l1  | 1.04      |     0     |
-|   l2  | 1.31      | 1999      |
-|   l3  | 0.97      | 1         |
-|   l4  | 1.27      | 1999      |
-|   l5  | 4.67      | 1         |
-|   l6  | 4.74      | 3999      |
-|   l7  | 4.83      | 3999      |
+|   l1  | 0.86      |     0     |
+|   l2  | 1.13      | 1999      |
+|   l3  | 0.82      | 1         |
+|   l4  | 1.12      | 1999      |
+|   l5  | 4.31      | 1         |
+|   l6  | 3.92      | 3999      |
+|   l7  | 4.49      | 3999      |
 |   x1  | 0.00      | 0         |
 |   x2  | 0.01      | 19        |
 |   x3  | 0.01      | 10        |
 |   x4  | 0.01      | 18        |
 |   x5  | 0.00      | 10        |
-|   x6  | 0.00      | 13        |
-|   x7  | 0.00      | 19        |
+|   x6  | 0.01      | 13        |
+|   x7  | 0.01      | 19        |
 
-Similar ao teste passado em questão de tempo, uma vez que é a mesma função remove_minimo. O problema, provavelmente, é o uso do foldr que pode não ser otimizado para esta tarefa por causa do lazy evaluation quando em massa. Mas em testes separados aparentemente é minimamente superior.
+Quase o mesmo resultado que o passado, no entanto, é visível o ganho em listas maiores, que aconteceu e chegou a 
+alcançar cerca de 20% (no caso l6).
 
 ## Inserção
 
@@ -314,14 +315,14 @@ Comparando todos, é possível identificar que:
 | Bolha (variação 2)        | Ok        | Ok        | Ruim                  | Ruim          | Ruim          |
 | Seleção (Original)        | Péssimo   | Ok        | Péssimo               | Excelente     | Péssimo       |
 | Seleção (Variação 1)      | Ok        | Excelente | Bom                   | Excelente     | Bom           |
-| Seleção (Variação 2)      | Ok        | Excelente | Bom                   | Excelente     | Bom           |
+| Seleção (Variação 2)      | Ok        | Excelente | Bom                   | Excelente     | Muito Bom     |
 | Inserção (Original)       | Ok        | Excelente | Ok                    | Ok            | Ok            |
 | Inserção (Variação 1)     | Ok        | Excelente | Ok                    | Ruim          | Ok            |
 | Quicksort (Original)      | Bom       | Ruim      | Ruim                  | Ruim          | Ruim          |
-| Quicksort (Variação 1)    | Bom       | Ruim      | Ruim                  | Ruim          | Ok            |
-| Quicksort (Variação 2)    | Bom       | Ruim      | Ruim                  | Ok            | Bom           |
+| Quicksort (Variação 1)    | Muito Bom | Ruim      | Ruim                  | Ruim          | Ok            |
+| Quicksort (Variação 2)    | Muito Bom | Ruim      | Ruim                  | Ok            | Bom           |
 | Mergesort                 | Excelente | Excelente | Excelente             | Ok            | Excelente     |
 
 Sendo assim é entendível que o mergesort é praticamente a melhor opção, embora tenha uma maior complexidade de implementação.
-Em suas melhores implementações, o Quicksort seria o ideal para listas bem embaralhadas e grandes, Seleção é ideal se precisar de implementações simples,
+Em suas melhores implementações, o Quicksort seria o ideal para listas bem embaralhadas e grandes, Seleção é ideal se precisar de implementações simples (embora na sua forma menos otimizada seja horrível),
 assim como o Inserção, embora um pouco menos, e o Bolha sendo o menos otimizado de todos na média dos cenários.

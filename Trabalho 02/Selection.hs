@@ -44,15 +44,25 @@ remove_menor (x:xs)                                 -- compara o menor com o men
     | otherwise    = (x:listaResto, minResto)       -- se não for ele é parte da lista do que ainda não é menor e o menor do restante
     where (listaResto, minResto) = remove_menor xs
 
---  -- var 2: foldr ou foldr1
---  --selecaoVar2 :: Ord a => [a] -> ([a],Int)
+-- var 2: foldr ou foldr1
+
+--  selecaoVar2 :: Ord l => [l] -> ([l],Int)
+--  selecaoVar2 l = selecaoVar2' (l, 0)
 --  
+--  selecaoVar2' :: Ord l => ([l], Int) -> ([l], Int)
+--  selecaoVar2' ([],cont) = ([],cont)
+--  selecaoVar2' (l:ls, cont) = (foldr (:) selecaoResto [menor], contResto)       -- juntar o menor ao acumulador, que é a seleção do restante
+--      where (listaSemMenor, menor) = remove_menor (l:ls)
+--            tempCont               = cont + (if menor == l then 0 else 1)
+--            (selecaoResto, contResto) = selecaoVar2' (listaSemMenor, tempCont)
+
 selecaoVar2 :: Ord l => [l] -> ([l],Int)
-selecaoVar2 l = selecaoVar2' (l, 0)
+selecaoVar2 l = (reverse lista , cont) 
+    where (lista, cont) = selecaoVar2' (l, 0)
 
 selecaoVar2' :: Ord l => ([l], Int) -> ([l], Int)
 selecaoVar2' ([],cont) = ([],cont)
-selecaoVar2' (l:ls, cont) = (foldr (:) selecaoResto [menor], contResto)       -- juntar o menor ao acumulador, que é a seleção do restante
-    where (listaSemMenor, menor) = remove_menor (l:ls)
-          tempCont               = cont + (if menor == l then 0 else 1)
+selecaoVar2' (l:ls, cont) = (foldr (:) [menor] selecaoResto, contResto)       
+    where (listaSemMenor, menor)  = remove_menor (l:ls)
+          tempCont                  = cont + (if menor == l then 0 else 1)
           (selecaoResto, contResto) = selecaoVar2' (listaSemMenor, tempCont)

@@ -24,10 +24,6 @@ avalia (Divi exp1 exp2) = (avalia exp1) `div` (avalia exp2)
 --  *Main> avalia exp2
 --  -50
 
-
-
-avalia (Sub (Val 0) (Val (avalia (Mult (Val (avalia (Add (Val (avalia (Sub (Val ((avalia (Add (Val 6) (Val 8))))) (Val 5))) ) (Val 1)))) (Val (avalia (Add (Val 2) (Val (avalia (Divi (Val 6) (Val 2)))))))))))
-
 -----------------------------------
 -- 7 - Pedra papel e Tesoura
 
